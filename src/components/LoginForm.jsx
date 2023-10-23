@@ -1,14 +1,17 @@
 import { useState } from "react";
 import axios from 'axios';
 
+const projectID = '8391028c-0a75-440e-bacf-5123118be76d';
+
 const LoginForm = () => {
     const [username, setusername] = useState(''); 
     const [password, setPassword] = useState(''); 
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
 
-        const authObject = { 'Project-ID': "8391028c-0a75-440e-bacf-5123118be76d", 'User':"rodrigomatias"} 
+        const authObject = { 'Project-ID': projectID, 'User-Name': username , 'User-Secret': password }; 
 
         try {
               //username / password => chatengine -> give messages 
@@ -23,6 +26,7 @@ const LoginForm = () => {
         } catch (err) {
             
                //error -> try with new username.... 
+               setError('Oops, incorrect credentials');
         }
       
      
@@ -42,7 +46,8 @@ const LoginForm = () => {
                       <button className="button" type="submit">
                         <span>Start Chatting</span>  
                       </button>
-                    </div>       
+                    </div>     
+                    <h2 className="error">{error}</h2>
                 </form>
               </div>
         </div>
